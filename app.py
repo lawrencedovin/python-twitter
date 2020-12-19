@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import requests
 import twitter
+import tweepy
 from secrets import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET
 
 # location = '11911 Rocking Horse Rd, Rockville, MD'
@@ -8,10 +9,24 @@ from secrets import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN_KEY, ACCESS_TOKE
 
 # app = Flask(__name__)
 
-api = twitter.Api(consumer_key=CONSUMER_KEY,
-                  consumer_secret=CONSUMER_SECRET,
-                  access_token_key=ACCESS_TOKEN_KEY,
-                  access_token_secret=ACCESS_TOKEN_SECRET)
+# api = twitter.Api(consumer_key=CONSUMER_KEY,
+#                   consumer_secret=CONSUMER_SECRET,
+#                   access_token_key=ACCESS_TOKEN_KEY,
+#                   access_token_secret=ACCESS_TOKEN_SECRET)
+
+def OAuth():
+    try:
+        auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+        auth.set_access_token(ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET)
+        return auth 
+    except Exception as e:
+        return None
+
+oauth = OAuth()
+api = tweepy.API(oauth)
+
+api.update_status('Hello, this is a tweet!')
+print('A tweet has been posted')
 
 # def get_coords(address):
 #     response = requests.get(API_BASE_URL, 
