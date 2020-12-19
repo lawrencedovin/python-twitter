@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Post a tweet!{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row d-flex justify-content-center text-center">
+        <div class="col-md-8">
+            <h1>Hello Lawrence, post a tweet!</h1>
+            <form action="post_tweet">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="post_tweet"
+                  class="form-control"
+                  id="post_tweet"
+                  placeholder="Post a tweet!"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            {% if tweet %}
+                <h3>Your tweet was: {{tweet}}</h3>
+            {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
